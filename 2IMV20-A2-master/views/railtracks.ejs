@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title><%= title %></title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Own CSS files -->
+    <link rel="stylesheet" type="text/css" href="../stylesheets/sequences.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/railtracks.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/dashboard.css">
+
+    <!-- JQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script> 
+    <!-- Own JS files -->
+    <script src = "../javascripts/railtracks.js" type = "text/javascript"/></script>
+    
+    <!-- Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <!-- Date range picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <!-- Font awesome icons -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!-- Searchable select -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
+  </head>
+  <body>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Title -->
+       <a class="navbar-brand" href="/">NS railroad view</a>
+ 
+       <!-- NavBar items -->
+       <ul class="navbar-nav">
+         <li class="nav-item">
+           <a class="nav-link" href="/"><i class="fas fa-map-marked-alt"></i> Map</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="/statistics"><i class="fas fa-chart-pie"></i> Statistics</a>
+         </li>
+         <li class="nav-item active">
+           <a class="nav-link" href="/railtracks"><i class="fas fa-route"></i> Railtracks statistics</a>
+         </li>
+       </ul>
+     </nav>
+
+        <!-- Content - container -->
+        <div class="container-fluid">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 1%;">
+              <h1 class="h3 mb-0 text-gray-800" id="titleRailtrack"><i class="fas fa-train"></i></h1>
+            </div>
+            <div id="dateButtons" style="top: 0;">
+              <div class="btn-group">
+               <button type="button" class="btn btn-danger">
+                  <div id="reportrange">
+                    <i class="fa fa-calendar-alt"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
+                  </div>
+                </button>
+              </div>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#railtrackSelection">Different track</button>
+            </div>
+
+            <!-- The Modal for selecting a track -->
+            <div class="modal" id="railtrackSelection">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Select a railtrack</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <select class="searchableSelect" name="selectRailtrack" id="selectRailtrack" style="width: 100%;">
+                    </select>
+                  </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="selectTrack">Select</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+
+              <!-- Totals of disruptions card -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">Totals of disruptions</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalDisruptions"></div>
+                        <hr>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalDuration"></div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Daily average of disruptions card -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-2">Daily average of disruptions</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="dailyAvgAmt"></div>
+                        <hr>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="dailyAvgDuration"></div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Average duration of disruptions Card -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-2">Average duration of disruptions</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="avgDurationMins"></div>
+                        <hr>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800" id="avgDurationHours"></div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-stopwatch fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Percentage of all disruptions Card-->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-2">Percentage of all disruptions in the selected range</div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto" style="padding-right: 7px;">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="percDisrOfTot"></div>
+                          </div>
+                          
+                        </div>
+                        <hr>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="percDurOfTot"></div>
+                          </div>
+                          
+                        </div>
+                        <div class="text-xs mb-0 font-weight-bold text-gray-800">(Note that one track is 0.00180% of the total amount of tracks)</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-percentage fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+  
+
+      <!-- Second row containing Line Chart Dur and Line Chart Freq-->
+      <div class="row">
+
+        <!-- Column containing Line Chart Dur and Barchart Dur-->
+        <div class="col-lg-6">
+  
+          <!-- Line Chart Duration-->
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Line Chart based on disruption duration</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <div id="my_dataviz"></div>
+            </div>
+          </div>
+
+          <!-- Bar Chart Duration-->
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">BarChart based on disruption duration</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="col" id="svg">
+                <svg width="860" height="600" id="durBarChart"></svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column containing Line Chart Freq and Barchart Freq-->
+        <div class="col-lg-6">
+
+          <!-- Line Chart Frequency -->
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Line Chart based on disruption frequency</h6>
+                <a href="#" data-toggle="cause-select-tooltip" title="Note that disruption count might differ from the total, as 1 disruption could last over multiple days and thus is counted multiple in this graph"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <div id="my_datavizFreq"></div>
+            </div>
+          </div>
+
+          <!-- Line Chart Frequency -->
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">BarChart based on disruption frequency</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="col" id="svg">
+                <svg width="860" height="600" id="freqBarChart"></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third row containing Sunburst Dur and SunburstFreq-->
+      <div class="row">
+
+        <!-- Left Column containing Sunburst duration-->
+        <div class="col-lg-6">
+
+          <!-- Dropdown Card Example -->
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Sunburst based on disruption duration</h6>
+            </div>
+            
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="col-sm-9 col-md-6 col-lg-8" id="svg">
+                <div id="main">
+                  <div id="sequenceDur"></div>
+                  <div id="chartDur">
+                    <div id="explanationDur" style="visibility: hidden;">
+                      <span id="percentageDur"></span>
+                      of the disruptions
+                    </div>
+                  </div>
+                </div>
+                  <!-- <div id="sidebar" style="margin-right: 5%;">
+                    <input type="checkbox" id="togglelegendDur"> Legend<br/>
+                    <div id="legendDur" style="visibility: hidden;"></div>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column containing Sunburst frequency-->
+
+        <div class="col-lg-6">
+
+          <!-- Dropdown Card Example -->
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Sunburst based on disruption frequency</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="col-sm-9 col-md-6 col-lg-8" id="svg">
+                <div id="main">
+                  <div id="sequenceFreq"></div>
+                  <div id="chartFreq">
+                    <div id="explanationFreq" style="visibility: hidden;">
+                      <span id="percentageFreq"></span>
+                      of the disruptions
+                    </div>
+                  </div>
+                </div>
+                <!-- <div id="sidebar" style="margin-right: 5%;">
+                  <input type="checkbox" id="togglelegendFreq"> Legend<br/>
+                  <div id="legendFreq" style="visibility: hidden;"></div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  
+          </div>
+
+        </div>
+        <!-- Sunburst-->
+        <!-- TODO add new sunburst file-->
+        <script src = "../javascripts/sunburstRailtracks.js" type = "text/javascript"/></script>
+        <script src = "../javascripts/lineChart.js" type = "text/javascript"/></script>
+
+        <!-- BarChart-->
+        <script src = "../javascripts/barChart.js" type = "text/javascript"/></script>
+  </body>
+</html>

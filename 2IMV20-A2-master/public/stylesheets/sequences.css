@@ -1,0 +1,99 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #fff;
+    margin-top: 10px;
+  }
+  
+  #main {
+    float: left;
+    width: 750px;
+  }
+  
+  #sidebar {
+    float: right;
+    width: 100px;
+  }
+  
+  #sequence {
+    width: 600px;
+    height: 70px;
+  }
+  
+  #legend {
+    padding: 10px 0 0 3px;
+  }
+  
+  #sequenceFreq text, #legend text {
+    font-weight: 600;
+    fill: #fff;
+  }
+    
+  #sequenceDur text, #legend text {
+    font-weight: 600;
+    fill: #fff;
+  }
+  
+
+  #chartDur {
+    position: relative;
+  }
+
+  #chartFreq {
+    position: relative;
+  }
+  
+  #chart path {
+    stroke: #fff;
+  }
+  
+  #explanationDur {
+    position: absolute;
+    top: 43%;
+    left: 48%;
+    width: 140px;
+    text-align: center;
+    color: #666;
+    z-index: 3;
+  }
+
+  #explanationFreq {
+    position: absolute;
+    top: 43%;
+    left: 48%;
+    width: 140px;
+    text-align: center;
+    color: #666;
+    z-index: 3;
+  }
+  
+  #percentageFreq {
+    font-size: 2.5em;
+  }
+
+  #percentageDur {
+    font-size: 2.5em;
+  }
+
+  .toolTip {
+    position: absolute;
+    min-width: 80px;
+    height: auto;
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #6F257F;
+    padding: 14px;
+    text-align: center;
+
+  }
+  .axis {
+    font: 15px sans-serif;
+  }
+  .axis path,
+  .axis line {
+  fill: none;
+  stroke: #D4D8DA;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+  }
+

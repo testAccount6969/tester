@@ -1,0 +1,112 @@
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    min-width: 100px;					
+    min-height: 25px;					
+    padding: 5px;				
+    font: 14px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+#loading {
+    position: absolute;
+    left: 50%;
+    opacity: 0;
+}
+
+div.card {
+    margin-right: 0px;
+    margin-top: 10px;
+}
+
+button.card-button {
+    width: 40%;
+    margin: 40px auto 0px auto;
+    display: block;
+}
+
+#reportrange {
+    background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 90%; color: black; display: block; margin: 20px auto;
+}
+
+div.card-text {
+    margin: 10px;
+}
+
+.btn-rst {
+    position: absolute;
+    left: 2%;
+    top: 2%;
+}
+
+.card-options {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.flip { transform: rotate(-180deg);}
+
+#openClose { 
+    -moz-transition: transform 0.6s; 
+    -webkit-transition: transform 0.6s; 
+    transition: transform 0.6s; 
+  } 
+
+div.card-text{
+    width: 90%;
+    margin: 12px auto;
+}
+
+form {
+    margin: 12px auto 0 auto;
+}
+
+div hr {
+    border-top: 3px solid white;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+th, tr {
+    cursor: pointer;
+}
+
+th i {
+    position: relative;
+    left: 10px;
+}
+
+a.multiselect-all > label.checkbox {
+    padding: 3px 0px 3px 20px !important;
+}
+
+.dropdown-toggle.btn {
+    background-color: white;
+    padding: 3px;
+    margin: 1%;
+}
+
+#colorLegendContainer {
+    display: none;
+    position: absolute;
+    top: 12%;
+    left: 2%;
+    height: 220px;
+    text-align: center;
+    background-color: #eee;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 10px 10px 260px 10px;
+    -webkit-box-shadow: 3px -3px 30px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px -3px 30px 0px rgba(0,0,0,0.3);
+    box-shadow: 3px -3px 30px 0px rgba(0,0,0,0.3);
+}
+
+#colorLegendAxis {
+    overflow: visible;
+}
